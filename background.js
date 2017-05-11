@@ -21,6 +21,7 @@ chrome.contextMenus.create({
 }, null);
 
 chrome.commands.onCommand.addListener(function(cmd) {
+  console.log('command', cmd);
   switch(cmd) {
   case "startstop":
     chrome.tabs.executeScript( {

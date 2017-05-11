@@ -17,22 +17,19 @@
   "commands": {
     "startstop": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Space",
-	"mac": "Command+Shift+Space"
+        "default": "Ctrl+Shift+Space"
       },
       "description": "Start/stop reading"
     },
     "faster": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Period",
-	"mac": "Command+Shift+Period"
+        "default": "Ctrl+Shift+Period"
       },
       "description": "Increase speed"
     },
     "slower": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Comma",
-	"mac": "Command+Shift+Comma"
+        "default": "Ctrl+Shift+Comma"
       },
       "description": "Decrease speed"
     }
