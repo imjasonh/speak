@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "permissions": [
     "contextMenus",
+    "tabs",
     "tts",
     "<all_urls>"
   ],
@@ -12,5 +13,14 @@
   },
   "background": {
     "scripts": ["background.js"]
+  },
+  "commands": {
+    "startstop": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Space",
+	"mac": "Command+Shift+Space"
+      },
+      "description": "Start/stop reading"
+    }
   }
 }
