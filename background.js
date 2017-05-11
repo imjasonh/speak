@@ -6,12 +6,33 @@
 // - intelligently detect blocks of text and ignore ads, photo captions, etc.,
 // https://mercury.postlight.com/web-parser/
 
-var rate = 1.75;
+var currentRate = 1.75;
+var currentText = '';
+var currentIndex = 0;
 
 function read(text) {
+  currentIndex = 0;
+  currentText = text;
   chrome.tts.speak(text, {
-    rate: rate
+    rate: currentRate,
+    onEvent: function(evt) {
+      console.log('event', evt.type);
+      if (evt.errorMessage != undefined) { console.error(evt.errorMessage); }
+      if (evt.charIndex == undefined) { return; }
+      currentIndex = evt.charIndex;
+      console.log(currentIndex, currentText.substr(currentIndex));
+    }
   });
+}
+
+function changeSpeed(newRate) {
+  if (newRate > 2 || newRate < .1) { return; }
+  // Stop speaking at the current rate, chop off the part that's already been
+  // read, and begin speaking the rest at the new rate.
+  chrome.tts.stop();
+  currentRate = newRate;
+  console.log('new rate', newRate);
+  read(currentText.substr(currentIndex));
 }
 
 chrome.contextMenus.create({
@@ -35,10 +56,7 @@ chrome.commands.onCommand.addListener(function(cmd) {
         }
       });
     });
-  case "faster": rate += .25;
-  case "slower": rate -= .25;
+  case "faster": changeSpeed(currentRate + .25);
+  case "slower": changeSpeed(currentRate - .25);
   }
-
-  if (rate < .1) { rate = .1; }
-  if (rate > 2) { rate = 2; }
 });
