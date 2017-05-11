@@ -9,7 +9,7 @@ chrome.contextMenus.create({
   contexts: ['selection'],
   onclick: function(info) {
     chrome.tts.speak(info.selectionText, {
-      rate: 2.0,
+      rate: 1.7,
     });
   },
-}, function() { /* TODO */ });
+}, null);
