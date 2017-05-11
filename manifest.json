@@ -21,6 +21,20 @@
 	"mac": "Command+Shift+Space"
       },
       "description": "Start/stop reading"
+    },
+    "faster": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Period",
+	"mac": "Command+Shift+Period"
+      },
+      "description": "Increase speed"
+    },
+    "slower": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Comma",
+	"mac": "Command+Shift+Comma"
+      },
+      "description": "Decrease speed"
     }
   }
 }
