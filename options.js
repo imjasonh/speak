@@ -1,3 +1,6 @@
+// TODOs:
+// - set gender/voice/lang
+//
 const keys = ['speed'];
 
 chrome.storage.sync.get(keys, function(opt) {

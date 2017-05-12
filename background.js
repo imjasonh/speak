@@ -1,10 +1,10 @@
 // TODOs:
-// - options page to set rate/gender/voice/volume
-// - keyboard shortcuts to read selection, read faster/slower, pause/resume
-// - manage queue of selections to read, "read to me now" or "read to me next"
+// - manage queue of selections to read, "read to me now" or
+// "read to me next"
 // - highlight current word/sentence
-// - intelligently detect blocks of text and ignore ads, photo captions, etc.,
-// https://mercury.postlight.com/web-parser/
+// - intelligently detect blocks of text and ignore ads, photo
+// captions, etc., https://mercury.postlight.com/web-parser/
+// - stop speaking when the text's tab is closed
 
 var currentRate = 1; // Default rate until we consult settings.
 var currentText = '';
@@ -12,6 +12,7 @@ var currentIndex = 0;
 
 chrome.storage.sync.get('speed', function(opt) {
   currentRate = parseFloat(opt['speed']);
+  if (currentRate == NaN) { currentRate = 1; }
 });
 
 function read(text) {
