@@ -6,7 +6,7 @@
 // - intelligently detect blocks of text and ignore ads, photo captions, etc.,
 // https://mercury.postlight.com/web-parser/
 
-var currentRate = 1.75;
+var currentRate = 1.75; // Default rate.
 var currentText = '';
 var currentIndex = 0;
 
@@ -17,7 +17,7 @@ function read(text) {
     rate: currentRate,
     onEvent: function(evt) {
       console.log('event', evt.type);
-      if (evt.errorMessage != undefined) { console.error(evt.errorMessage); }
+      if (evt.errorMessage != undefined) { console.error(evt); return; }
       if (evt.charIndex == undefined) { return; }
       currentIndex = evt.charIndex;
       console.log(currentIndex, currentText.substr(currentIndex));
@@ -26,7 +26,7 @@ function read(text) {
 }
 
 function changeSpeed(newRate) {
-  if (newRate > 2 || newRate < .1) { return; }
+  if (newRate > 3 || newRate < .1) { return; }
   // Stop speaking at the current rate, chop off the part that's already been
   // read, and begin speaking the rest at the new rate.
   chrome.tts.stop();
@@ -45,18 +45,19 @@ chrome.commands.onCommand.addListener(function(cmd) {
   console.log('command', cmd);
   switch(cmd) {
   case "startstop":
-    chrome.tabs.executeScript( {
-      code: "window.getSelection().toString();"
-    }, function(selection) {
-      chrome.tts.isSpeaking(function(speaking) {
-        if (speaking) {
-          chrome.tts.stop();
-        } else {
+    chrome.tts.isSpeaking(function(speaking) {
+      if (speaking) {
+        chrome.tts.stop();
+      } else {
+        chrome.tabs.executeScript( {
+          code: "window.getSelection().toString();"
+        }, function(selection) {
           read(selection[0]);
-        }
-      });
+        });
+      }
     });
-  case "faster": changeSpeed(currentRate + .25);
-  case "slower": changeSpeed(currentRate - .25);
+    break;
+  case "faster": changeSpeed(currentRate + .25); break;
+  case "slower": changeSpeed(currentRate - .25); break;
   }
 });
