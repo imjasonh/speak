@@ -11,8 +11,11 @@ var currentText = '';
 var currentIndex = 0;
 
 chrome.storage.sync.get('speed', function(opt) {
-  currentRate = parseFloat(opt['speed']);
-  if (currentRate == NaN) { currentRate = 1; }
+  if ('speed' in opt) {
+    currentRate = parseFloat(opt['speed']);
+  } else {
+    currentRate = 1;
+  }
 });
 
 function read(text) {
