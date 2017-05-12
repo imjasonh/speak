@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "permissions": [
     "contextMenus",
+    "storage",
     "tabs",
     "tts",
     "<all_urls>"
@@ -33,5 +34,9 @@
       },
       "description": "Decrease speed"
     }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
   }
 }
