@@ -36,7 +36,7 @@ function changeSpeed(newRate) {
 }
 
 chrome.contextMenus.create({
-  title: 'Read to me',
+  title: 'Speak',
   contexts: ['selection'],
   onclick: function(info) { read(info.selectionText); },
 }, null);
